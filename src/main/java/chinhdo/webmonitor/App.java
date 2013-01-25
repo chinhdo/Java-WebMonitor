@@ -20,24 +20,16 @@ import org.apache.log4j.Logger;
 import chinhdo.mail.Gmail;
 import chinhdo.util.Helper;
 
-/**
- * Hello world!
- **/
 public class App 
 {
     public static void main( String[] args ) throws IOException, ConfigurationException
-    {
-    	// BasicConfigurator.configure();
-    	
+    {  	
     	log.info("====> Starting application (V1.0.0.16). Datetime: " + (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss" + ".")).format(new Date()));
     	log.debug("Current folder: " + Helper.GetCurrentDir());
     	
     	HashMap<String, String> data = new HashMap<String, String>();
     	XMLConfiguration config = new XMLConfiguration("config.xml");
     	
-		Date lastAlert = new Date();
-		config.setProperty("LastAlert", lastAlert);
-		config.save();
 		log.debug(config.getBasePath());
     	
     	Object prop = config.getProperty("urls.url.urlString");

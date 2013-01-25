@@ -4,11 +4,11 @@
 
 	<groupId>chinhdo</groupId>
 	<artifactId>webmonitor</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<packaging>jar</packaging>
 
-	<name>webmonitor</name>
-	<url>http://maven.apache.org</url>
+	<name>ChinhDo.WebMonitor</name>
+	<url>http://www.chinhdo.com/WebMonitor</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -42,23 +42,44 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>chinhdo.webmonitor.App</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.6</version>
 				<executions>
 					<execution>
-						<id>copy</id>
-						<phase>install</phase>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
 						<goals>
 							<goal>copy-dependencies</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>
-								${project.build.directory}/lib
-							</outputDirectory>
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
 		</plugins>
-
 	</build>
 </project>
