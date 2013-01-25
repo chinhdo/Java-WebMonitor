@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<config>
+  <urls>
+    <url><urlString>http://www.chinhdo.com</urlString><checkString>greatest hits</checkString></url>
+    <url><urlString>http://www.korg01w-list.com</urlString><checkString>Lists Etiquette</checkString></url>
+	<url><urlString>http://www.hoinguoivietrichmondva.org</urlString><checkString>Chinh</checkString></url>
+	<url><urlString>http://www.anthem.com/health-insurance/home/overview</urlString><checkString>Anthem</checkString></url>
+	<url><urlString>https://www.anthem.com/health-insurance/login/registration</urlString><checkString>Anthem</checkString></url>
+	<url><urlString>http://www.unicare.com/health-insurance/home/overview</urlString><checkString>Unicare</checkString></url>
+	<url><urlString>http://www.bcbsga.com/health-insurance/home/overview</urlString><checkString>bcbsga</checkString></url>
+	<url><urlString>https://ghealthcare.anthem.com/cp/web/gcaredashboard/About</urlString><checkString>Google</checkString></url>
+	<url><urlString>https://m.anthem.com/mobile/providerfinder/home</urlString><checkString>Anthem</checkString></url>	
+  </urls>
+</config>
