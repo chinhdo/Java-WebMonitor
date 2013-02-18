@@ -12,6 +12,15 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.X509Certificate;
+
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.apache.commons.logging.Log;
@@ -22,10 +31,20 @@ import chinhdo.util.Helper;
 
 public class App 
 {
-    public static void main( String[] args ) throws IOException, ConfigurationException
+    public static void main( String[] args ) throws IOException, ConfigurationException, NoSuchAlgorithmException, KeyManagementException
     {  	
     	log.info("====> Starting application (V1.0.0.16). Datetime: " + (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss" + ".")).format(new Date()));
     	log.debug("Current folder: " + Helper.GetCurrentDir());
+    	
+    	// This is to ignore invalid cert issues
+    	TrustManager trm = new X509TrustManager() {
+            public X509Certificate[] getAcceptedIssuers() {return null;}
+            public void checkClientTrusted(X509Certificate[] certs, String authType) {}
+            public void checkServerTrusted(X509Certificate[] certs, String authType) {}
+        };
+        SSLContext sc = SSLContext.getInstance("SSL");
+        sc.init(null, new TrustManager[] { trm }, null);
+        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());   
     	
     	HashMap<String, String> data = new HashMap<String, String>();
     	XMLConfiguration config = new XMLConfiguration("config.xml");
@@ -115,7 +134,7 @@ public class App
 		log.debug("Exiting.");
     }
 
-    private static Logger  log = Logger.getLogger("chinhdo.webmonitor");
+	private static Logger  log = Logger.getLogger("chinhdo.webmonitor");
     private static String NEWLINE = System.getProperty("line.separator");
 
     private static void AppendReport(StringBuffer report, String msg) {
