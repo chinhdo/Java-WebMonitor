@@ -106,13 +106,14 @@ public class App
 		}
 		
 		// Check port
-		String hostName = "chinhdo.dnsalias.com";
+		String hostName = "chinhdo.dyndns.info";
 		Integer port = 8080;
 		if (TestPort(hostName, port)) {
 			log.debug(hostName + ":" + port + ": OK");
 		}
 		else {
 			hasErrors = true;
+			failedUrls.append(hostName);
 			AppendReport(report, "Cannot connect to " + hostName + ":" + port + ".");
 		}
 		
