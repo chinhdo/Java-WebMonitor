@@ -33,7 +33,7 @@ public class App
 {
     public static void main( String[] args ) throws IOException, ConfigurationException, NoSuchAlgorithmException, KeyManagementException
     {  	
-    	log.info("====> Starting application (V1.0.0.16). Datetime: " + (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss" + ".")).format(new Date()));
+    	log.info("====> Starting application (V1.0.0.17). Datetime: " + (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss" + ".")).format(new Date()));
     	log.debug("Current folder: " + Helper.GetCurrentDir());
     	
     	// This is to ignore invalid cert issues
@@ -106,6 +106,7 @@ public class App
 		}
 		
 		// Check port
+		/*
 		String hostName = "chinhdo.dyndns.info";
 		Integer port = 8080;
 		if (TestPort(hostName, port)) {
@@ -116,6 +117,7 @@ public class App
 			failedUrls.append(hostName);
 			AppendReport(report, "Cannot connect to " + hostName + ":" + port + ".");
 		}
+		*/
 		
 		// Send alert
 		if (hasErrors) {
