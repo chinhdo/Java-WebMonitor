@@ -1,7 +1,5 @@
 package chinhdo.util;
-import java.util.*;
 import java.io.File;
-import java.lang.*;
 import java.net.*;
 
 public class Helper {

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<config>
+  <!-- BUG: Needs at least two items to work -->
+  <smtp>
+    <host>your_smtp_host_here</host>
+    <port>465</port>
+    <login>your_smtp_login</login>
+    <pwd>your_smtp_password</pwd>
+    <notifyEmails>notification email address</notifyEmails>
+  </smtp>
+  <urlInfos>
+    <urlInfo>
+      <url>https://your_URL_here</url>
+      <check>your_check_string_here</check>
+    </urlInfo>
+  </urlInfos>
+</config>
