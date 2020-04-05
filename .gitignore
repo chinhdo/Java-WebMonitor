@@ -6,3 +6,4 @@
 *.log
 *.log.*
 config.xml
+/target
