@@ -36,24 +36,28 @@ java -cp webmonitor-1.1.jar:target/lib/* chinhdo.webmonitor.App
 mvn clean install
 ```
 
+# How to run app on Unix/Linux:
+```
+/usr/local/bin/java -cp .:webmonitor-1.1.jar:lib/* chinhdo.webmonitor.App
+```
+
+## How do I run on Windows?
+
+```
+java -cp webmonitor-1.1.jar;lib/* chinhdo.webmonitor.App
+```
+
+Or you can run with Maven from the project
+```
+mvn exec:java -Dexec.mainClass="chinhdo.webmonitor.App"
+```
+
 ## How do I crate a single JAR?
 
 ```
 mvn assembly:single
 ```
 
-## How do I run on Windows?
+## How do I get help?
 
-```
-java -cp target/webmonitor-1.1.jar;target/lib/* chinhdo.webmonitor.App
-```
-
-or 
-```
-mvn exec:java -Dexec.mainClass="chinhdo.webmonitor.App"
-```
-
-# How to run app on Unix/Linux:
-```
-/usr/local/bin/java -cp .:webmonitor-1.0.jar:lib/* chinhdo.webmonitor.App
-```
+Create an issue if you need help or contact [me](https://github.com/chinhdo).
