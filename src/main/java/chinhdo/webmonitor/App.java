@@ -2,15 +2,10 @@ package chinhdo.webmonitor;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.InetSocketAddress;
-import java.net.Socket;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -33,8 +28,9 @@ import chinhdo.util.Helper;
 public class App 
 {
     public static void main( final String[] args ) throws IOException, ConfigurationException, NoSuchAlgorithmException, KeyManagementException
-    {  	
-    	log.info("====> Starting application (V1.1.0.18). Datetime: " + (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss" + ".")).format(new Date()));
+	{  	long started = System.currentTimeMillis();
+
+    	log.info("====> Starting application (V1.1.0.21).");
 		log.debug("Current folder: " + Helper.GetCurrentDir());
 		    	
     	// This is to ignore invalid cert issues
@@ -61,7 +57,7 @@ public class App
 		final HashMap<String, String> data = new HashMap<String, String>();
 		final List<Object> urls = config.getList("urlInfos.urlInfo.url");
 		final List<Object> checks = config.getList("urlInfos.urlInfo.check");
-		log.debug("Number of URLs: " + urls.size());
+		log.info("numUrls=" + urls.size());
 		for (int i = 0; i < urls.size(); i++) {
 			final String url = urls.get(i).toString();
 			final String check = checks.get(i).toString();
@@ -72,8 +68,7 @@ public class App
 		final StringBuffer failedUrls = new StringBuffer();
 		boolean hasErrors = false;
 		for (final String url : data.keySet()) {
-
-			final long started = System.currentTimeMillis();
+			final long requestStarted = System.currentTimeMillis();
 			String html = null;
 			Exception getUrlException = null;
 			try {
@@ -81,16 +76,17 @@ public class App
 			} catch (final Exception e) {
 				getUrlException = e;
 
-				log.debug("Failed to get " + url + ": " + e.getStackTrace());
+				log.warn("Failed to get " + url + ": " + e.getStackTrace());
 			}
 
-			final float elapsed = System.currentTimeMillis() - started;
+			final long elapsed = System.currentTimeMillis() - requestStarted;
 
 			if (getUrlException == null) {
 				if (html.indexOf(data.get(url)) >= 0) {
 					final NumberFormat formatter = new DecimalFormat("#0.00");
 					AppendReport(report,
-							url + ": OK (" + html.length() + " bytes, " + formatter.format(elapsed / 1000) + "s)");
+						url + ": OK (" + html.length() + " bytes, " + formatter.format(elapsed / 1000) + "s)");
+					log.info("url=\"" + url + "\" len=" + html.length() + " elapsed=" + elapsed);
 				} else {
 					hasErrors = true;
 					AppendReport(report, url + ": FAILED (cannot find checkstring '" + data.get(url) + "')");
@@ -98,7 +94,8 @@ public class App
 						failedUrls.append(", ");
 					failedUrls.append(url);
 
-					log.debug("Response: " + html);
+					log.error("Cannot find check string '" + data.get(url) + "' for " + url + ".");
+					log.warn("Response: " + html);
 				}
 			} else {
 				hasErrors = true;
@@ -129,12 +126,10 @@ public class App
 			final String notifyEmails = config.getString("smtp.notifyEmails");
 
 			final SmtpNotifier mailer = new SmtpNotifier(smtpHost, smtpPort, smtpLogin, smtpPwd, notifyEmails);
-			// mailer.notify(subject, body.toString());
-
-			// TODO Gmail.SendMail("WebMonitor", "chinhdo@gmail.com", "Failed to contact " + failedUrls.toString(), body.toString());
+			mailer.notify(subject, body.toString());
 		}
 
-		log.debug("Exiting.");
+		log.info("Exiting elapsed=" + (System.currentTimeMillis() - started));
     }
 
 	private static Logger  log = Logger.getLogger("chinhdo.webmonitor");
@@ -143,11 +138,18 @@ public class App
     private static void AppendReport(final StringBuffer report, final String msg) {
     	report.append(msg);
     	report.append(NEWLINE);
-    	log.debug(msg);
     }
 
 	private static String GetUrl(final String urlString) throws IOException {
-		final URL url = new URL(urlString);
+		URL url = new URL(urlString);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+        con.setRequestProperty("User-Agent", "ChinhDo.WebMonitor");
+        con.setReadTimeout(15000);
+        con.setConnectTimeout(15000);
+        con.setDoOutput(false);
+
+		// final URL url = new URL(urlString);
 		final InputStream is = url.openStream();
 		int ptr = 0;
 		final StringBuffer buffer = new StringBuffer();
