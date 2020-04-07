@@ -29,6 +29,13 @@
 			<artifactId>javax.mail</artifactId>
 			<version>1.6.2</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.10.19</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -85,6 +92,56 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.3</version>
+				<executions>
+				  <execution>
+					<id>coverage-initialize</id>
+					<goals>
+					  <goal>prepare-agent</goal>
+					</goals>
+				  </execution>
+				  <execution>
+					<id>coverage-report</id>
+					<phase>post-integration-test</phase>
+					<goals>
+					  <goal>report</goal>
+					</goals>
+				  </execution>
+				  <!-- Threshold -->
+				  <execution>
+					<id>coverage-check</id>
+					<goals>
+					  <goal>check</goal>
+					</goals>
+					<configuration>
+						<excludes>
+							<exclude>**/SmtpHelper.*</exclude>
+						  </excludes>
+						<rules>
+						<rule>
+						  <element>CLASS</element>
+						  <excludes>
+							<exclude>chinhdo.mail.SmtpHelper.1</exclude>
+							<exclude>chinhdo.webmonitor.App</exclude>
+							<exclude>chinhdo.webmonitor.UrlHelper</exclude>
+							<exclude>chinhdo.webmonitor.UrlHelper.1</exclude>
+						  </excludes>
+						  <limits>
+							<limit>
+							  <counter>LINE</counter>
+							  <value>COVEREDRATIO</value>
+							  <minimum>80%</minimum>
+							</limit>
+						  </limits>
+						</rule>
+					  </rules>
+					</configuration>
+				  </execution>
+				</executions>
+			  </plugin>
 		</plugins>
 	</build>
 </project>

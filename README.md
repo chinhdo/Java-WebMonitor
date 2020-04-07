@@ -7,19 +7,23 @@ In folder with webmonitor-1.1.jar:
 Copy example.config.xml to config.xml and configure put in your SMTP server info and the URLs you want to monitor. The app will look for the string specified in the *check* attribute in the response.
 
 ```xml
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<config>
+  <notification>
+    <from>Web Monitor &lt;no-reply@YOUR_DOMAIN.com&gt;</from>
+    <to>YOUR_TO_ADDRESS</to>
+  </notification>
   <smtp>
-    <host>your_smtp_host_here</host>
+    <host>SMTP_HOST</host>
     <port>465</port>
-    <login>your_smtp_login</login>
-    <pwd>your_smtp_password</pwd>
-    <notifyEmails>notification email address</notifyEmails>
+    <login>SMTP_LOGIN</login>
+    <pwd>SMTP_PASSWORD</pwd>
+    <notifyEmails>NOTIFICATION_EMAIL</notifyEmails>
   </smtp>
   <urlInfos>
-    <urlInfo>
-      <url>https://your_URL_here</url>
-      <check>your_check_string_here</check>
-    </urlInfo>
+    <urlInfo><url>https://YOUR_URL</url><check>CHECK_STRING</check></urlInfo>
   </urlInfos>
+</config>
 ```
 
 

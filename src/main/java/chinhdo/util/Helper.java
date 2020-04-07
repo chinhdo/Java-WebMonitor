@@ -2,16 +2,11 @@ package chinhdo.util;
 import java.io.File;
 import java.net.*;
 
+/** Helper functions */
 public class Helper {
-
-	public static String GetComputerName() {
+	public static String GetComputerName() throws UnknownHostException {
 		String computerName;
-		try {
-			computerName = InetAddress.getLocalHost().getHostName();
-		} catch (UnknownHostException e) {
-			throw new RuntimeException(e);
-		}
-		  
+		computerName = InetAddress.getLocalHost().getHostName();		  
 		return computerName;
 	}
 	

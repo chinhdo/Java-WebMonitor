@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<config>
+  <notification>
+    <from>Web Monitor &lt;no-reply@test.com&gt;</from>
+    <to>test@example.com</to>
+  </notification>
+  <smtp>
+    <host></host>
+    <port>465</port>
+    <login>example_login</login>
+    <pwd>example_pwd</pwd>
+    <notifyEmails>example_email</notifyEmails>
+  </smtp>
+  <urlInfos>
+    <urlInfo><url>https://www.test.com</url><check>test</check></urlInfo>
+  </urlInfos>
+</config>
