@@ -17,6 +17,12 @@
 	</properties>
 
 	<dependencies>
+		<!-- Needed for build on Github Ubuntu -->
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>javax.annotation-api</artifactId>
+			<version>1.2</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
 			<groupId>junit</groupId>
