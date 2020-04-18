@@ -1,7 +1,7 @@
 package chinhdo.webmonitor;
 
 import java.net.UnknownHostException;
-
+import org.apache.log4j.Logger;
 import chinhdo.mail.SmtpHelper;
 import chinhdo.util.ConfigManager;
 import chinhdo.util.Helper;
@@ -41,10 +41,13 @@ public class Notifier {
 
             final String fromAddr = config.getString("notification.from");
             final String toEmails = config.getString("notification.to");
+
+            log.info("Sending email notification.");
             smtp.send(fromAddr, toEmails, subject, body.toString());
         }
     }
 
+    private static Logger  log = Logger.getLogger("chinhdo.webmonitor.Notifider");
     private ConfigManager config;
     private SmtpHelper smtp;
 }
