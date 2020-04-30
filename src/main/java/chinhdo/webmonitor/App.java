@@ -10,7 +10,7 @@ import chinhdo.util.Helper;
 public class App {
 	public static void main(final String[] args) throws UnknownHostException {
 		long started = System.currentTimeMillis();
-		log.info("====> Starting application (V1.1.0.22). Current dir: " + Helper.GetCurrentDir() + ".");
+		log.info("====> Starting application (V1.1.0.23). Current dir: " + Helper.GetCurrentDir() + ".");
 		
 		ConfigManager config = new ConfigManager("config.xml");
 		UrlHelper urlHelper = new UrlHelper(config);

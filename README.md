@@ -48,7 +48,7 @@ mvn -B package --file pom.xml
 
 # How to run app on Unix/Linux:
 ```
-/usr/local/bin/java -cp .:webmonitor-1.1.jar:lib/* chinhdo.webmonitor.App
+java -cp .:webmonitor-1.1.jar:lib/* chinhdo.webmonitor.App
 ```
 
 ## How do I run on Windows?
