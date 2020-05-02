@@ -30,6 +30,7 @@ public class Monitor {
             String html = null;
             try {
                 html = urlHelper.get(info.url);
+                info.elapsedMs = System.currentTimeMillis() - requestStarted;
                 if (html.indexOf(info.checkStr) >= 0) {
                     info.length = html.length();
                     info.isOK = true;
@@ -41,7 +42,6 @@ public class Monitor {
             catch (final Exception e) {
                 info.error = e.getMessage();
             }
-            info.elapsedMs = System.currentTimeMillis() - requestStarted;
             result.urlInfos.add(info);
 
             String logMsg = " url=\"" + info.url + "\" len=" +
